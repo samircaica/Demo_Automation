@@ -1,0 +1,7 @@
+---
+mysql_port: '3306'
+db_conn_host: 'server'
+dbname: 'demo'
+dbuser: 'test'
+dbupass: 'test'
+dbhost: 'localhost'

@@ -1,0 +1,39 @@
+---
+- name: Install Mysql package
+  yum: name={{ item }} state=present
+  with_items:
+   - mariadb-server
+   - MySQL-python
+
+- name: Start Mysql Service
+  service: name=mariadb state=started enabled=yes
+
+- name: remove the test database
+  mysql_db: name={{ dbuser }} state=absent
+
+- name: Drop test Database just in case it existed before
+  mysql_db: name={{ dbname }} state=absent
+
+- name: Create demo database
+  mysql_db: name={{ dbname }} state=present collation=utf8_general_ci
+
+- name: ensure anonymous users are not in the database
+  mysql_user: name={{ dbuser }} host={{ item }} state=absent
+  with_items:
+     - localhost
+     - '%'
+
+- name: Create Application DB User 
+  mysql_user: name={{ dbuser }} password={{ dbupass }} priv={{ dbname }}.*:ALL host={{ item }} state=present
+  with_items:
+     - localhost
+     - '%'
+
+- name: copy mysql test dump to userdb database
+  copy: src=dump.sql dest=/tmp
+
+- name: import test dump to userdb database
+  mysql_db: name=demo state=import target=/tmp/dump.sql
+
+- name: Query the test DB to check the import worked ok
+  command: mysql -h {{ dbhost }} -u {{ dbuser }} -p{{ dbupass }} -e "SELECT * FROM test" {{ dbname }}

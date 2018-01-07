@@ -1,0 +1,81 @@
+---
+- hosts: AWS_Jenkins
+  become: yes
+  remote_user: ec2-user
+  vars:
+    maven_version: 3.5.2
+  tasks:
+    - name: Update all packages to latest
+      yum: name=* state=latest
+
+    - name: Install git package
+      yum: name={{ item }} state=present
+      with_items:
+       - git
+
+    - name: Copy jdk rpm
+      copy: src=jdk-8u151-linux-x64.rpm dest=/tmp/jdk-8u151-linux-x64.rpm
+
+    - name: Install jdk rpm
+      yum: name=/tmp/jdk-8u151-linux-x64.rpm state=present
+
+    - name: Copy jenkins war
+      copy: src=jenkins.war dest=/opt/jdk-8u151-linux-x64.rpm
+
+    - name: Download jenkins.war
+      get_url:
+        url: http://mirrors.jenkins.io/war/latest/jenkins.war
+        dest: /opt/jenkins.war
+
+    - name: Download jenkins.rpm https://pkg.jenkins.io/redhat-stable/jenkins.repo
+      yum_repository:
+        name: jenkins
+        description: Jenkins-stable
+        baseurl: https://pkg.jenkins.io/redhat-stable
+        gpgcheck: 1
+
+    #- name: Install repo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+    #  command: "wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo"
+
+    #- name: Install key rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+    #  command: "rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key"
+
+    #- name: Iniciar Jenkins
+    #  shell: ((nohup java -jar /opt/jenkins.war --httpPort=8080 > /var/log/jenkins_start.log 2>&1) & )
+    - name: Install jenkins from rpm
+      yum: name=jenkins state=present
+
+    - service:
+        name: jenkins
+        state: started
+
+    - name: Check that /var/lib/jenkins/secrets/initialAdminPassword exists
+      stat:
+        path: /var/lib/jenkins/secrets/initialAdminPassword
+      register: stat_result
+
+    - name: Jenkins password
+      command: "cat /var/lib/jenkins/secrets/initialAdminPassword"
+      register: cat
+      when: stat_result.stat.exists == True
+
+    - debug: var=cat.stdout_lines
+      when: stat_result.stat.exists == True
+
+    - name: Unarchive Maven {{ maven_version }}
+      unarchive:
+        src: http://www-eu.apache.org/dist/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz
+        dest: /opt
+        remote_src: yes
+
+    - file:
+        src: /opt/apache-maven-{{ maven_version }}/bin/mvn
+        dest: /usr/sbin/mvn
+        state: link
+
+    #- name: get public IP
+    #  ipify_facts:
+    #  register: public_ip
+    
+    #- name: output
+    #  debug: msg="{{ public_ip }}"

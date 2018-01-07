@@ -1,0 +1,27 @@
+- name: Install Apache and php packages
+  yum: name={{ item }} state=present
+  with_items:
+   - httpd
+   - php
+   - php-mysql
+
+- name: Copy the info.php file
+  copy: src=info.php dest=/var/www/html/info.php
+
+- name: Copy the index.php file
+  copy: src=index.php dest=/var/www/html/index.php
+
+- name: Copy demo.php file
+  copy: src=demo.php dest=/var/www/html/demo.php
+
+- name: Copy css & js dir
+  copy:
+    src: "{{ item }}"
+    dest: /var/www/html/{{ item }}
+    mode: 0777
+    directory_mode: yes
+  with_items:
+    ['css','js']
+
+- name: Ensure that the service apache is started and persistent
+  service: name=httpd state=started enabled=yes
