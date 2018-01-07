@@ -19,8 +19,8 @@
     - name: Install jdk rpm
       yum: name=/tmp/jdk-8u151-linux-x64.rpm state=present
 
-    - name: Copy jenkins war
-      copy: src=jenkins.war dest=/opt/jdk-8u151-linux-x64.rpm
+    #- name: Copy jenkins war
+    #  copy: src=jenkins.war dest=/opt/jdk-8u151-linux-x64.rpm
 
     - name: Download jenkins.war
       get_url:
