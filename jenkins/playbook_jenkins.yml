@@ -32,7 +32,7 @@
         name: jenkins
         description: Jenkins-stable
         baseurl: https://pkg.jenkins.io/redhat-stable
-        gpgcheck: 1
+        gpgcheck: 0
 
     #- name: Install repo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
     #  command: "wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo"
