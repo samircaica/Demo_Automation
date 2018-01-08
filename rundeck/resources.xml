@@ -11,4 +11,13 @@
   	hostname="192.168.43.57"
   	ssh-keypath="/var/lib/rundeck/demoserver.key"
   	/>
+  <node name="devops1"
+  	tags="devops1"
+  	osFamily="unix"
+  	osName="Linux"
+  	osArch="amd64"
+  	username="vagrant"
+  	hostname="192.168.43.49"
+  	ssh-keypath="/var/lib/rundeck/devops1.key"
+  	/>
 </project>
