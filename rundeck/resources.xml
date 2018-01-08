@@ -16,7 +16,7 @@
   	osFamily="unix"
   	osName="Linux"
   	osArch="amd64"
-  	username="vagrant"
+  	username="inmetrics"
   	hostname="192.168.43.49"
   	ssh-keypath="/var/lib/rundeck/devops1.key"
   	/>
