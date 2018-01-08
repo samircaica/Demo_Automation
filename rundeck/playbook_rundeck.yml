@@ -27,7 +27,7 @@
 
     - service:
         name: rundeckd
-        state: stoped
+        state: stopped
 
     - name: Copy Rundeck Config
       copy: src=rundeck-config.properties dest=/etc/rundeck/rundeck-config.properties

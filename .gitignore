@@ -1,0 +1,4 @@
+
+*.rpm
+
+jenkins/jenkins.war
