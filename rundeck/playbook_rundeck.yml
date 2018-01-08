@@ -37,4 +37,4 @@
         state: started
 
     - name: Copy Rundeck resources.xml
-      copy: src=resources.xml dest=/var/rundeck/projects/BCh_Demo/etc/resources.xm
+      copy: src=resources.xml dest=/var/rundeck/projects/BCh_Demo/etc/resources.xml
