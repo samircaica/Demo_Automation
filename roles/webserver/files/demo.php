@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>Jumbotron Template for Bootstrap</title>
+    <title>Demo Banco de Chile</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
