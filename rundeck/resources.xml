@@ -9,5 +9,6 @@
   	osArch="amd64"
   	username="vagrant"
   	hostname="192.168.43.57"
+  	ssh-keypath="/var/lib/rundeck/demoserver.key"
   	/>
 </project>
