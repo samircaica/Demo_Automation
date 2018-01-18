@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>Demo Banco de Chile!!!!</title>
+    <title>Demo Banco de Chile</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
       <div class="jumbotron">
         <div class="container">
           <h1 class="display-3">Orquestación de Procesos automatizados.</h1>
-          <p>Demo de Configuration Management</p>
+          <p>Demo de Configuration Management.!!!!</p>
           <p></p>
         </div>
       </div>
