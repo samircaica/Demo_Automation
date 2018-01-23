@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <node name="localhost" description="Rundeck server node" tags="" hostname="localhost" osArch="amd64" osFamily="unix" osName="Linux" osVersion="3.10.0-693.11.1.el7.x86_64" username="rundeck"/>
+  <node name="demoserver"
+  	tags="demoserver"
+  	osFamily="unix"
+  	osName="Linux"
+  	osArch="amd64"
+  	username="vagrant"
+  	hostname="192.168.43.57"
+  	ssh-keypath="/var/lib/rundeck/demoserver.key"
+  	/>
+  <node name="devops1"
+  	tags="devops1"
+  	osFamily="unix"
+  	osName="Linux"
+  	osArch="amd64"
+  	username="inmetrics"
+  	hostname="192.168.43.49"
+  	ssh-keypath="/var/lib/rundeck/devops1.key"
+  	/>
+</project>

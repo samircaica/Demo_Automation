@@ -1,0 +1,40 @@
+---
+- hosts: Rundeck
+  become: yes
+  remote_user: vagrant
+  vars:
+    maven_version: 3.5.2
+  tasks:
+    - name: Update all packages to latest
+      yum: name=* state=latest
+
+    - name: Install git package
+      yum: name={{ item }} state=present
+      with_items:
+       - git
+
+    - name: Copy jdk rpm
+      copy: src=jdk-8u151-linux-x64.rpm dest=/tmp/jdk-8u151-linux-x64.rpm
+
+    - name: Install jdk rpm
+      yum: name=/tmp/jdk-8u151-linux-x64.rpm state=present
+
+    - name: Copy Rundeck rpm
+      copy: src=rundeck-2.10.4-1.46.GA.noarch.rpm dest=/tmp/rundeck-2.10.4-1.46.GA.noarch.rpm
+
+    - name: Install Rundeck rpm
+      yum: name=/tmp/rundeck-2.10.4-1.46.GA.noarch.rpm state=present
+
+    - service:
+        name: rundeckd
+        state: stopped
+
+    - name: Copy Rundeck Config
+      copy: src=rundeck-config.properties dest=/etc/rundeck/rundeck-config.properties
+
+    - service:
+        name: rundeckd
+        state: started
+
+    - name: Copy Rundeck resources.xml
+      copy: src=resources.xml dest=/var/rundeck/projects/BCh_Demo/etc/resources.xml

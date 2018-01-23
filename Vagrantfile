@@ -82,6 +82,12 @@ Vagrant.configure("2") do |config|
     rundeck.vm.network "public_network", bridge: "wlp7s0", ip: "192.168.43.56"
     rundeck.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/authorized_keys"
   end
+  config.vm.define "rundeckce" do |rundeckce|
+    rundeckce.vm.hostname = "rundeckce"
+    #rundeckce.vm.network "private_network", ip: "192.168.33.20"
+    rundeckce.vm.network "public_network", bridge: "wlp7s0", ip: "192.168.43.58"
+    rundeckce.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/authorized_keys"
+  end
   config.vm.define "demoserver" do |demoserver|
     demoserver.vm.hostname = "demoserver"
     #server.vm.network "private_network", ip: "192.168.33.20"
