@@ -1,5 +1,5 @@
 ---
-- hosts: Rundeck
+- hosts: Rundeckce
   become: yes
   remote_user: vagrant
   vars:
