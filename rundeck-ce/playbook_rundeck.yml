@@ -19,6 +19,12 @@
     - name: Install jdk rpm
       yum: name=/tmp/jdk-8u151-linux-x64.rpm state=present
 
+    - name: Copy Rundeck config rpm
+      copy: src=rundeck-config-2.10.4-1.46.GA.noarch.rpm dest=/tmp/rundeck-config-2.10.4-1.46.GA.noarch.rpm
+
+    - name: Install Rundeck config rpm
+      yum: name=/tmp/rundeck-config-2.10.4-1.46.GA.noarch.rpm state=present
+
     - name: Copy Rundeck rpm
       copy: src=rundeck-2.10.4-1.46.GA.noarch.rpm dest=/tmp/rundeck-2.10.4-1.46.GA.noarch.rpm
 
