@@ -27,8 +27,8 @@
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <div class="container">
-          <h1 class="display-3">Orquestación de Procesos automatizados.</h1>
-          <p>Demo de Configuration Management.</p>
+          <h1 class="display-3">Orquestación de Procesos Automatizados.</h1>
+          <p>Demo de Configuration Management.!!!!!!!!</p>
           <p></p>
         </div>
       </div>
