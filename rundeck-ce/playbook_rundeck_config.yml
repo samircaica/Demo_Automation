@@ -1,0 +1,13 @@
+---
+- hosts: Rundeckce
+  become: yes
+  remote_user: vagrant
+  tasks:
+    - name: Copy Rundeck resources.xml
+      copy: src=resources.xml dest=/var/rundeck/projects/BCh_Demo/etc/resources.xml
+
+    - name: Copy demoserver key
+      copy: src=demoserver.key dest=/var/lib/rundeck/demoserver.key
+
+    - name: Copy devops1 key
+      copy: src=devops1.key dest=/var/lib/rundeck/devops1.key

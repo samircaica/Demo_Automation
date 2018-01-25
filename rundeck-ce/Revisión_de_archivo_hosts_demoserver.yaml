@@ -1,0 +1,42 @@
+- description: Revisión de archivo /etc/hosts demoserver
+  executionEnabled: true
+  id: f6ec9b9a-469a-44fb-a918-180276f8a4d1
+  loglevel: INFO
+  name: Revisión de archivo hosts demoserver
+  nodeFilterEditable: false
+  notification:
+    onavgduration:
+      email:
+        recipients: samir.caica@inmetrics.cl
+        subject: Duración de revisión de /etc/hosts
+    onfailure:
+      email:
+        attachLog: true
+        recipients: samir.caica@inmetrics.cl
+        subject: Revisión de /etc/hosts fallida
+    onstart:
+      email:
+        recipients: samir.caica@inmetrics.cl
+        subject: Revisión de /etc/hosts iniciada
+    onsuccess:
+      email:
+        attachLog: true
+        recipients: samir.caica@inmetrics.cl
+        subject: Revisión de /etc/hosts exitosa
+  schedule:
+    dayofmonth:
+      day: '*'
+    month: '*'
+    time:
+      hour: '*'
+      minute: 0/10
+      seconds: '0'
+    year: '*'
+  scheduleEnabled: true
+  sequence:
+    commands:
+    - description: Revisión de /etc/hosts
+      exec: cat /etc/hosts
+    keepgoing: false
+    strategy: node-first
+  uuid: f6ec9b9a-469a-44fb-a918-180276f8a4d1

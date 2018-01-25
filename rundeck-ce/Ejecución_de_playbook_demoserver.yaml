@@ -1,0 +1,44 @@
+- description: ''
+  executionEnabled: true
+  id: ba06bf7c-db42-40af-b7ee-05477a182525
+  loglevel: INFO
+  name: Ejecución de playbook demoserver
+  nodeFilterEditable: false
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: false
+      rankOrder: ascending
+      successOnEmptyNodeFilter: false
+      threadcount: 1
+    filter: 'tags: devops1'
+  nodesSelectedByDefault: true
+  notification:
+    onavgduration:
+      email:
+        recipients: samir.caica@inmetrics.cl
+        subject: Detalle de ejecución de playbook
+    onfailure:
+      email:
+        attachLog: true
+        recipients: samir.caica@inmetrics.cl
+        subject: Ejecución INcorrecta de playbook
+    onstart:
+      email:
+        recipients: samir.caica@inmetrics.cl
+        subject: Inicio de Ejecución de playbook
+    onsuccess:
+      email:
+        attachLog: true
+        recipients: samir.caica@inmetrics.cl
+        subject: Ejecución correcta de playbook
+  scheduleEnabled: true
+  sequence:
+    commands:
+    - description: ejecuta script
+      script: |2-
+         cd /home/inmetrics/Demo/Demo_Automation
+         ansible-playbook -i hosts playbook.yml
+    keepgoing: false
+    strategy: node-first
+  uuid: ba06bf7c-db42-40af-b7ee-05477a182525

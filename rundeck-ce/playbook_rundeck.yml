@@ -4,6 +4,7 @@
   remote_user: vagrant
   vars:
     maven_version: 3.5.2
+    rundeck_version: 2.10.4-1.46
   tasks:
     - name: Update all packages to latest
       yum: name=* state=latest
@@ -12,6 +13,7 @@
       yum: name={{ item }} state=present
       with_items:
        - git
+       - vim
 
     - name: Copy jdk rpm
       copy: src=jdk-8u151-linux-x64.rpm dest=/tmp/jdk-8u151-linux-x64.rpm
@@ -20,20 +22,15 @@
       yum: name=/tmp/jdk-8u151-linux-x64.rpm state=present
 
     - name: Copy Rundeck config rpm
-      copy: src=rundeck-config-2.10.4-1.46.GA.noarch.rpm dest=/tmp/rundeck-config-2.10.4-1.46.GA.noarch.rpm
-
-    - name: Install Rundeck config rpm
-      yum: name=/tmp/rundeck-config-2.10.4-1.46.GA.noarch.rpm state=present
+      copy: src=rundeck-config-{{ rundeck_version }}.GA.noarch.rpm dest=/tmp/rundeck-config-{{ rundeck_version }}.GA.noarch.rpm
 
     - name: Copy Rundeck rpm
-      copy: src=rundeck-2.10.4-1.46.GA.noarch.rpm dest=/tmp/rundeck-2.10.4-1.46.GA.noarch.rpm
+      copy: src=rundeck-{{ rundeck_version }}.GA.noarch.rpm dest=/tmp/rundeck-{{ rundeck_version }}.GA.noarch.rpm
 
     - name: Install Rundeck rpm
-      yum: name=/tmp/rundeck-2.10.4-1.46.GA.noarch.rpm state=present
-
-    - service:
-        name: rundeckd
-        state: stopped
+      yum: 
+        name: /tmp/rundeck-config-{{ rundeck_version }}.GA.noarch.rpm, /tmp/rundeck-{{ rundeck_version }}.GA.noarch.rpm
+        state: present
 
     - name: Copy Rundeck Config
       copy: src=rundeck-config.properties dest=/etc/rundeck/rundeck-config.properties
@@ -41,6 +38,3 @@
     - service:
         name: rundeckd
         state: started
-
-    - name: Copy Rundeck resources.xml
-      copy: src=resources.xml dest=/var/rundeck/projects/BCh_Demo/etc/resources.xml
