@@ -2,9 +2,25 @@
 - hosts: Rundeckce
   become: yes
   remote_user: vagrant
+  vars:
+    project_name: BCh_Demo3
   tasks:
+    - name: Create Project directory
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: rundeck
+        group: rundeck
+        mode: 0775
+      with_items:
+        - /var/rundeck/projects/{{ project_name }}/acls
+        - /var/rundeck/projects/{{ project_name }}/etc
+
     - name: Copy Rundeck resources.xml
-      copy: src=resources.xml dest=/var/rundeck/projects/BCh_Demo/etc/resources.xml
+      copy: src=resources.xml dest=/var/rundeck/projects/{{ project_name }}/etc/resources.xml
+
+    - name: Copy Rundeck resources.xml
+      copy: src=project.properties dest=/var/rundeck/projects/{{ project_name }}/etc/project.properties
 
     - name: Copy demoserver key
       copy: src=demoserver.key dest=/var/lib/rundeck/demoserver.key
